@@ -1,0 +1,26 @@
+Folder Details
+
+core/
+1. Singleton services: AuthService, ApiService, ErrorHandler
+
+2. HTTP interceptors
+
+3. Guards
+
+4. Global config
+
+5. Do not import into feature modules
+
+shared/
+1. Reusable UI components (buttons, modals, etc.)
+
+2. Shared pipes and directives
+
+3. Utility functions
+
+features/
+1. Each feature is its own module and folder
+
+2. Follows lazy-loading for performance
+
+3. Contains: component/, service/, model/, store/
