@@ -1,33 +1,36 @@
-import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, inject } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { LoginModel } from '../../model/employee.model';
+import { Employee } from '../../core/services/employee';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
-  imports: [],
+  imports: [FormsModule],
   templateUrl: './login.html',
   styleUrl: './login.css',
 })
 export class Login {
-  loginForm: FormGroup;
-  submitted = false;
+  loginObject: LoginModel = new LoginModel();
 
-  constructor(private fb: FormBuilder) {
-    this.loginForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]],
+  employeeService = inject(Employee);
+  router = inject(Router);
+
+  onLogin() {
+    this.employeeService.onLogin(this.loginObject).subscribe({
+      next: (response: any) => {
+        if (response.result) {
+          console.log('Login successful:', response);
+          localStorage.setItem('leaveUser', JSON.stringify(response.data));
+          this.router.navigateByUrl('/dashboard');
+        } else {
+          alert('Login failed:' + response.message);
+        }
+      },
+      error: (error) => {
+        console.error('Login failed:', error);
+        // Handle login failure, e.g., show an error message
+      },
     });
-  }
-
-  onSubmit() {
-    this.submitted = true;
-
-    if (this.loginForm.invalid) return;
-
-    // handle login logic here
-    console.log('Login successful', this.loginForm.value);
-  }
-
-  get f() {
-    return this.loginForm.controls;
   }
 }
