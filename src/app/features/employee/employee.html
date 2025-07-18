@@ -29,7 +29,7 @@
         </tr>
       </thead>
       <tbody class="divide-y divide-gray-100 text-gray-700">
-        @for (item of employees; track $index) {
+        @for (item of paginatedEmployees; track $index) {
         <tr>
           <td class="px-6 py-4">{{ $index + 1 }}</td>
           <td class="px-6 py-4">{{ item.employeeName }}</td>
@@ -44,5 +44,41 @@
         }
       </tbody>
     </table>
+  </div>
+  <!--  Pagination Controls -->
+  <div class="flex justify-center mt-6 space-x-2">
+    <!-- Previous Button -->
+    <button
+      class="px-3 py-1 rounded bg-gray-200 hover:bg-gray-300 disabled:opacity-50 disabled:cursor-not-allowed"
+      (click)="goToPage(currentPage - 1)"
+      [disabled]="currentPage === 1"
+    >
+      Previous
+    </button>
+
+    <!-- Page Buttons -->
+    @for (page of paginationRange(); track page) { @if (page !== '...') {
+    <button
+      class="px-3 py-1 rounded"
+      [ngClass]="{
+        'bg-[var(--primary)] text-white': currentPage === page,
+        'bg-gray-100 hover:bg-gray-200': currentPage !== page
+      }"
+      (click)="goToPage(page)"
+    >
+      {{ page }}
+    </button>
+    } @else {
+    <span class="px-3 py-1 select-none">...</span>
+    } }
+
+    <!-- Next Button -->
+    <button
+      class="px-3 py-1 rounded bg-gray-200 hover:bg-gray-300 disabled:opacity-50 disabled:cursor-not-allowed"
+      (click)="goToPage(currentPage + 1)"
+      [disabled]="currentPage === totalPages"
+    >
+      Next
+    </button>
   </div>
 </div>
