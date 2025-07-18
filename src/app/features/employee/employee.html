@@ -1,1 +1,48 @@
-<p>employee works!</p>
+<div class="p-6 bg-white rounded-xl shadow-md">
+  <div class="flex items-center justify-between mb-6">
+    <div>
+      <h1 class="text-2xl font-semibold text-gray-800">Employee Management</h1>
+      <p class="text-sm text-gray-500">
+        Manage employee details and records here.
+      </p>
+    </div>
+
+    <button
+      class="bg-[var(--primary)] hover:bg-opacity-90 text-white font-medium px-5 py-2 rounded-md text-sm shadow"
+    >
+      + Add Employee
+    </button>
+  </div>
+
+  <div class="overflow-x-auto rounded-lg">
+    <table class="min-w-full bg-white text-sm">
+      <thead
+        class="bg-gray-100 text-left text-gray-600 uppercase tracking-wider"
+      >
+        <tr>
+          <th class="px-6 py-3">#</th>
+          <th class="px-6 py-3">Name</th>
+          <th class="px-6 py-3">Email</th>
+          <th class="px-6 py-3">Contact</th>
+          <th class="px-6 py-3">Department</th>
+          <th class="px-6 py-3">Actions</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-gray-100 text-gray-700">
+        @for (item of employees; track $index) {
+        <tr>
+          <td class="px-6 py-4">{{ $index + 1 }}</td>
+          <td class="px-6 py-4">{{ item.employeeName }}</td>
+          <td class="px-6 py-4">{{ item.emailId }}</td>
+          <td class="px-6 py-4">{{ item.contactNo }}</td>
+          <td class="px-6 py-4">{{ item.deptName }}</td>
+          <td class="px-6 py-4">
+            <button class="text-blue-600 hover:underline mr-2">Edit</button>
+            <button class="text-red-600 hover:underline">Delete</button>
+          </td>
+        </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>

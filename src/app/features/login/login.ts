@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { LoginModel } from '../../model/employee.model';
-import { Employee } from '../../core/services/employee';
+import { EmployeeService } from '../../core/services/employee';
 import { Router } from '@angular/router';
 
 @Component({
@@ -14,7 +14,7 @@ export class Login {
   loginObject: LoginModel = new LoginModel();
   isLoading = false;
 
-  employeeService = inject(Employee);
+  employeeService = inject(EmployeeService);
   router = inject(Router);
 
   onLogin() {
