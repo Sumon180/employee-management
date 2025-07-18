@@ -1,3 +1,6 @@
 export class LoginModel {
-  constructor(public email: string = '', public password: string = '') {}
+  constructor(
+    public emailId: string = 'www@gmail.com',
+    public password: string = '112233'
+  ) {}
 }
