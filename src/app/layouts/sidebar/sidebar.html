@@ -3,27 +3,35 @@
   <ul class="flex-1 p-4 space-y-2">
     <li>
       <a
-        href="/dashboard"
+        routerLink="/dashboard"
+        routerLinkActive="bg-white/10"
         class="block py-2 px-4 rounded hover:bg-white/10 transition"
         >Dashboard</a
       >
     </li>
     <li>
       <a
-        href="/employee"
+        routerLink="/employee"
+        routerLinkActive="bg-white/10"
         class="block py-2 px-4 rounded hover:bg-white/10 transition"
         >Employees</a
       >
     </li>
     <li>
       <a
-        href="/leaves"
+        routerLink="/leaves"
+        routerLinkActive="bg-white/10"
         class="block py-2 px-4 rounded hover:bg-white/10 transition"
         >Leave Management</a
       >
     </li>
   </ul>
-  <div class="p-4 border-t border-white/20 text-sm text-white/80">
-    © {{ currentYear }} ELMS
+  <div
+    class="p-4 border-t border-white/20 text-sm text-white/80 flex items-center gap-5"
+  >
+    <p>© {{ currentYear }} ELMS</p>
+    <button (click)="logout()" class="bg-white px-4 py-2 text-black rounded-sm">
+      Logout
+    </button>
   </div>
 </nav>
