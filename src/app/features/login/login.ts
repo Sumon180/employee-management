@@ -12,11 +12,14 @@ import { Router } from '@angular/router';
 })
 export class Login {
   loginObject: LoginModel = new LoginModel();
+  isLoading = false;
 
   employeeService = inject(Employee);
   router = inject(Router);
 
   onLogin() {
+    this.isLoading = true;
+
     this.employeeService.onLogin(this.loginObject).subscribe({
       next: (response: any) => {
         if (response.result) {
@@ -28,6 +31,7 @@ export class Login {
         }
       },
       error: (error) => {
+        this.isLoading = false;
         console.error('Login failed:', error);
         // Handle login failure, e.g., show an error message
       },
