@@ -1,0 +1,115 @@
+<div class="max-w-3xl mx-auto bg-white p-8 rounded-xl shadow-md">
+  <h2 class="text-2xl font-semibold text-gray-800 mb-6">
+    Add New Leave Request
+  </h2>
+
+  <form class="space-y-6">
+    <!-- Row 1: Leave Type & Number of Days -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div>
+        <label
+          for="leaveType"
+          class="block text-sm font-medium text-gray-700 mb-1"
+        >
+          Leave Type
+        </label>
+        <input
+          type="text"
+          id="leaveType"
+          name="leaveType"
+          ngModel
+          required
+          placeholder="e.g., Sick Leave"
+          class="w-full px-4 py-2 rounded-lg border border-gray-300 bg-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition"
+        />
+      </div>
+
+      <div>
+        <label
+          for="numberOfDays"
+          class="block text-sm font-medium text-gray-700 mb-1"
+        >
+          Number of Days
+        </label>
+        <input
+          type="number"
+          id="numberOfDays"
+          name="numberOfDays"
+          ngModel
+          required
+          min="1"
+          class="w-full px-4 py-2 rounded-lg border border-gray-300 bg-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition"
+        />
+      </div>
+    </div>
+
+    <!-- Row 2: From Date & To Date -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div>
+        <label
+          for="fromDate"
+          class="block text-sm font-medium text-gray-700 mb-1"
+        >
+          From Date
+        </label>
+        <input
+          type="date"
+          id="fromDate"
+          name="fromDate"
+          ngModel
+          required
+          class="w-full px-4 py-2 rounded-lg border border-gray-300 bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition"
+        />
+      </div>
+
+      <div>
+        <label
+          for="toDate"
+          class="block text-sm font-medium text-gray-700 mb-1"
+        >
+          To Date
+        </label>
+        <input
+          type="date"
+          id="toDate"
+          name="toDate"
+          ngModel
+          required
+          class="w-full px-4 py-2 rounded-lg border border-gray-300 bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition"
+        />
+      </div>
+    </div>
+
+    <!-- Row 3: Details -->
+    <div>
+      <label for="reason" class="block text-sm font-medium text-gray-700 mb-1">
+        Details / Reason
+      </label>
+      <textarea
+        id="reason"
+        name="reason"
+        ngModel
+        rows="4"
+        placeholder="Explain the reason for leave"
+        class="w-full px-4 py-2 rounded-lg border border-gray-300 bg-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition"
+      ></textarea>
+    </div>
+
+    <!-- Actions -->
+    <div class="flex justify-end gap-4 pt-4">
+      <button
+        type="button"
+        class="px-4 py-2 rounded-lg border border-gray-300 text-sm font-medium text-gray-700 hover:bg-gray-100 transition"
+      >
+        Cancel
+      </button>
+
+      <button
+        type="submit"
+        class="px-4 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-medium transition"
+      >
+        Submit Leave Request
+      </button>
+    </div>
+  </form>
+</div>

@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { CommonModule, NgClass } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-leaves',
-  imports: [NgClass, CommonModule],
+  imports: [NgClass, CommonModule, RouterLink],
   templateUrl: './leaves.html',
   styleUrl: './leaves.css',
 })

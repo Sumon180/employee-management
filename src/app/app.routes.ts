@@ -6,6 +6,7 @@ import { Employee } from './features/employee/employee';
 import { Leaves } from './features/leaves/leaves';
 import { NewEmployee } from './features/employee/new-employee/new-employee';
 import { Settings } from './features/settings/settings';
+import { LeaveRequest } from './features/leaves/leave-request/leave-request';
 
 export const routes: Routes = [
   {
@@ -36,6 +37,10 @@ export const routes: Routes = [
       {
         path: 'leaves',
         component: Leaves,
+      },
+      {
+        path: 'leaves/leave-request',
+        component: LeaveRequest,
       },
       {
         path: 'settings',
