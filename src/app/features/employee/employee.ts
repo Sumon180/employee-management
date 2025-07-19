@@ -1,11 +1,12 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { EmployeeService } from '../../core/services/employee';
-import { IEmployee, IEmployeeModel } from '../../model/employee.model';
+import { IEmployee, ApiResponse } from '../../model/employee.model';
 import { NgClass } from '@angular/common';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-employee',
-  imports: [NgClass],
+  imports: [NgClass, RouterLink],
   templateUrl: './employee.html',
   styleUrl: './employee.css',
 })
@@ -25,7 +26,7 @@ export class Employee implements OnInit {
 
   getEmployees() {
     this.employeeService.getAllEmployee().subscribe({
-      next: (response: IEmployeeModel) => {
+      next: (response: ApiResponse) => {
         if (response.result) {
           this.employees = response.data;
           this.totalPages = Math.ceil(

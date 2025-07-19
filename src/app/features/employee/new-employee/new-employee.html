@@ -1,0 +1,131 @@
+<div class="max-w-3xl mx-auto bg-white p-8 rounded-xl shadow-md">
+  <h2 class="text-2xl font-semibold text-gray-800 mb-4">Add New Employee</h2>
+  <form #form="ngForm" (ngSubmit)="onRegister()" class="space-y-6">
+    <!-- Row 1 -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1"
+          >Full Name</label
+        >
+        <input
+          type="text"
+          name="employeeName"
+          [(ngModel)]="newEmployee.employeeName"
+          required
+          class="w-full px-4 py-2 rounded-lg border border-gray-300 bg-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition"
+          placeholder="Enter full name"
+        />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1"
+          >Contact Number</label
+        >
+        <input
+          type="tel"
+          name="contactNo"
+          [(ngModel)]="newEmployee.contactNo"
+          required
+          class="w-full px-4 py-2 rounded-lg border border-gray-300 bg-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition"
+          placeholder="e.g. 017XXXXXXXX"
+        />
+      </div>
+    </div>
+
+    <!-- Row 2 -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1"
+          >Email Address</label
+        >
+        <input
+          type="email"
+          name="emailId"
+          [(ngModel)]="newEmployee.emailId"
+          required
+          class="w-full px-4 py-2 rounded-lg border border-gray-300 bg-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition"
+          placeholder="example@email.com"
+        />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1"
+          >Department</label
+        >
+        <select
+          name="deptId"
+          [(ngModel)]="newEmployee.deptId"
+          required
+          class="w-full px-4 py-2 rounded-lg border border-gray-300 bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition"
+        >
+          <option value="">Select Department</option>
+          @for (item of deptList | async; track $index) {
+          <option [value]="item.deptId">{{ item.deptName }}</option>
+          }
+        </select>
+      </div>
+    </div>
+
+    <!-- Row 3 -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1"
+          >Password</label
+        >
+        <input
+          type="password"
+          name="password"
+          [(ngModel)]="newEmployee.password"
+          required
+          class="w-full px-4 py-2 rounded-lg border border-gray-300 bg-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition"
+          placeholder="Enter a secure password"
+        />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1"
+          >Gender</label
+        >
+        <select
+          name="gender"
+          [(ngModel)]="newEmployee.gender"
+          required
+          class="w-full px-4 py-2 rounded-lg border border-gray-300 bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition"
+        >
+          <option value="">Select Gender</option>
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Row 4 -->
+    <div>
+      <label class="block text-sm font-medium text-gray-700 mb-1">Role</label>
+      <select
+        name="role"
+        [(ngModel)]="newEmployee.role"
+        required
+        class="w-full px-4 py-2 rounded-lg border border-gray-300 bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition"
+      >
+        <option value="">Select Role</option>
+        @for (item of roleList | async; track $index) {
+        <option>{{ item }}</option>
+        }
+      </select>
+    </div>
+
+    <!-- Actions -->
+    <div class="flex justify-end gap-4 pt-4">
+      <button
+        type="button"
+        class="px-4 py-2 rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-100 transition"
+      >
+        Cancel
+      </button>
+      <button
+        type="submit"
+        class="px-4 py-2 rounded-lg bg-indigo-600 text-white hover:bg-indigo-700 transition"
+      >
+        Add Employee
+      </button>
+    </div>
+  </form>
+</div>
