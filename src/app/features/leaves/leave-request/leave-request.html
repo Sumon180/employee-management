@@ -156,9 +156,17 @@
           </span>
         </td>
         <td class="px-6 py-4">
-          <button class="text-indigo-600 hover:underline text-sm">View</button>
-          <button class="ml-2 text-red-600 hover:underline text-sm">
-            Delete
+          <button
+            (click)="approvedLeave(leave.leaveId)"
+            class="text-indigo-600 hover:underline text-sm"
+          >
+            Approve
+          </button>
+          <button
+            (click)="rejectedLeave(leave.leaveId)"
+            class="ml-2 text-red-600 hover:underline text-sm"
+          >
+            Reject
           </button>
         </td>
       </tr>

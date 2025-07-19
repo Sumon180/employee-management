@@ -30,6 +30,7 @@ export class LeaveRequest implements OnInit {
   });
 
   leaveList: any[] = [];
+  approvalLeaveList: any[] = [];
 
   constructor() {
     const loggedData = localStorage.getItem('leaveUser');
@@ -41,6 +42,7 @@ export class LeaveRequest implements OnInit {
 
   ngOnInit() {
     this.loadLeave();
+    this.getAllLeaves();
   }
 
   loadLeave() {
@@ -60,6 +62,58 @@ export class LeaveRequest implements OnInit {
     });
   }
 
+  getAllLeaves() {
+    this.employeeService.getAllLeaves().subscribe({
+      next: (res: any) => {
+        if (res.result) {
+          this.approvalLeaveList = res.data.filter(
+            (m: any) => m.isApproved === null
+          );
+          console.log(
+            'Leave data loaded successfully:',
+            this.approvalLeaveList
+          );
+        } else {
+          console.error('Failed to load leave data:', res.message);
+        }
+      },
+      error: (error) => {
+        console.error('Error loading leave data:', error);
+      },
+    });
+  }
+
+  approvedLeave(leaveId: number) {
+    this.employeeService.approveLeave(leaveId).subscribe({
+      next: (res: any) => {
+        if (res.result) {
+          alert('Leave approved successfully');
+          this.getAllLeaves();
+        } else {
+          console.error('Failed to approve leave:', res.message);
+        }
+      },
+      error: (error) => {
+        console.error('Error approving leave:', error);
+      },
+    });
+  }
+  rejectedLeave(leaveId: number) {
+    this.employeeService.rejectLeave(leaveId).subscribe({
+      next: (res: any) => {
+        if (res.result) {
+          alert('Leave rejected successfully');
+          this.getAllLeaves();
+        } else {
+          console.error('Failed to reject leave:', res.message);
+        }
+      },
+      error: (error) => {
+        console.error('Error rejecting leave:', error);
+      },
+    });
+  }
+
   onSubmitLeave() {
     if (this.leaveForm.valid) {
       const formValue = this.leaveForm.value;
@@ -68,6 +122,7 @@ export class LeaveRequest implements OnInit {
           if (res.result) {
             alert('Leave request submitted successfully');
             this.leaveForm.reset();
+            this.loadLeave();
           } else {
             console.error('Failed to submit leave request:', res.message);
           }

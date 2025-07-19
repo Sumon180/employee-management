@@ -24,6 +24,22 @@ export class EmployeeService {
     return this.http.get<ApiResponse>(`${this.baseUrl}/GetEmployees`);
   }
 
+  getAllLeaves(): Observable<ApiResponse> {
+    return this.http.get<ApiResponse>(`${this.baseUrl}/GetAllLeaves`);
+  }
+
+  approveLeave(leaveId: number): Observable<ApiResponse> {
+    return this.http.get<ApiResponse>(
+      `${this.baseUrl}/ApproveLeave?id=${leaveId}`
+    );
+  }
+
+  rejectLeave(leaveId: number): Observable<ApiResponse> {
+    return this.http.get<ApiResponse>(
+      `${this.baseUrl}/RejectLeave?id=${leaveId}`
+    );
+  }
+
   getDept() {
     return this.http
       .get(`${this.baseUrl}/GetDepartments`)
@@ -47,6 +63,12 @@ export class EmployeeService {
   getAllLeaveByEmpId(empId: number): Observable<ApiResponse> {
     return this.http.get<ApiResponse>(
       `${this.baseUrl}/GetAllLeavesByEmployeeId?id=${empId}`
+    );
+  }
+
+  GetLeavesForApprovalBySuperWiserId(empId: number): Observable<ApiResponse> {
+    return this.http.get<ApiResponse>(
+      `${this.baseUrl}/GetLeavesForApprovalBySuperwiserId?id=${empId}`
     );
   }
 }
