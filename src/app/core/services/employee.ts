@@ -65,10 +65,4 @@ export class EmployeeService {
       `${this.baseUrl}/GetAllLeavesByEmployeeId?id=${empId}`
     );
   }
-
-  GetLeavesForApprovalBySuperWiserId(empId: number): Observable<ApiResponse> {
-    return this.http.get<ApiResponse>(
-      `${this.baseUrl}/GetLeavesForApprovalBySuperwiserId?id=${empId}`
-    );
-  }
 }
