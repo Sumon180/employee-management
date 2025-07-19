@@ -11,39 +11,42 @@ import { map, Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class EmployeeService {
+  private readonly baseUrl =
+    'https://freeapi.miniprojectideas.com/api/EmployeeLeave';
+
   constructor(private http: HttpClient) {}
 
-  onLogin(object: LoginModel) {
-    return this.http.post(
-      'https://freeapi.miniprojectideas.com/api/EmployeeLeave/Login',
-      object
-    );
+  onLogin(payload: LoginModel) {
+    return this.http.post(`${this.baseUrl}/Login`, payload);
   }
 
   getAllEmployee(): Observable<ApiResponse> {
-    return this.http.get<ApiResponse>(
-      'https://freeapi.miniprojectideas.com/api/EmployeeLeave/GetEmployees'
-    );
+    return this.http.get<ApiResponse>(`${this.baseUrl}/GetEmployees`);
   }
 
   getDept() {
     return this.http
-      .get(
-        'https://freeapi.miniprojectideas.com/api/EmployeeLeave/GetDepartments'
-      )
+      .get(`${this.baseUrl}/GetDepartments`)
       .pipe(map((res: any) => res.data));
   }
 
   getRole() {
     return this.http
-      .get('https://freeapi.miniprojectideas.com/api/EmployeeLeave/GetAllRoles')
+      .get(`${this.baseUrl}/GetAllRoles`)
       .pipe(map((res: any) => res.data));
   }
 
-  onRegister(object: INewEmployee) {
-    return this.http.post(
-      'https://freeapi.miniprojectideas.com/api/EmployeeLeave/CreateEmployee',
-      object
+  onNewEmployee(payload: INewEmployee) {
+    return this.http.post(`${this.baseUrl}/CreateEmployee`, payload);
+  }
+
+  onAddLeaveRequest(payload: any) {
+    return this.http.post(`${this.baseUrl}/AddLeave`, payload);
+  }
+
+  getAllLeaveByEmpId(empId: number): Observable<ApiResponse> {
+    return this.http.get<ApiResponse>(
+      `${this.baseUrl}/GetAllLeavesByEmployeeId?id=${empId}`
     );
   }
 }

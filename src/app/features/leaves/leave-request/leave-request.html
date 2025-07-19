@@ -3,7 +3,7 @@
     Add New Leave Request
   </h2>
 
-  <form class="space-y-6">
+  <form [formGroup]="leaveForm" class="space-y-6">
     <!-- Row 1: Leave Type & Number of Days -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
       <div>
@@ -13,15 +13,20 @@
         >
           Leave Type
         </label>
-        <input
+
+        <select
           type="text"
           id="leaveType"
-          name="leaveType"
-          ngModel
+          formControlName="leaveType"
           required
-          placeholder="e.g., Sick Leave"
-          class="w-full px-4 py-2 rounded-lg border border-gray-300 bg-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition"
-        />
+          class="w-full px-4 py-2 rounded-lg border border-gray-300 bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition"
+        >
+          <option value="">Select Type</option>
+          <option value="Male">Sick Leave</option>
+          <option value="Female">Casual Leave</option>
+          <option value="Female">Earned Leave</option>
+          <option value="Female">Maternity Leave</option>
+        </select>
       </div>
 
       <div>
@@ -33,9 +38,8 @@
         </label>
         <input
           type="number"
-          id="numberOfDays"
-          name="numberOfDays"
-          ngModel
+          id="noOfDays"
+          formControlName="noOfDays"
           required
           min="1"
           class="w-full px-4 py-2 rounded-lg border border-gray-300 bg-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition"
@@ -55,8 +59,7 @@
         <input
           type="date"
           id="fromDate"
-          name="fromDate"
-          ngModel
+          formControlName="fromDate"
           required
           class="w-full px-4 py-2 rounded-lg border border-gray-300 bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition"
         />
@@ -72,8 +75,7 @@
         <input
           type="date"
           id="toDate"
-          name="toDate"
-          ngModel
+          formControlName="toDate"
           required
           class="w-full px-4 py-2 rounded-lg border border-gray-300 bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition"
         />
@@ -86,30 +88,85 @@
         Details / Reason
       </label>
       <textarea
-        id="reason"
-        name="reason"
-        ngModel
+        id="details"
+        formControlName="details"
         rows="4"
         placeholder="Explain the reason for leave"
         class="w-full px-4 py-2 rounded-lg border border-gray-300 bg-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition"
       ></textarea>
     </div>
-
-    <!-- Actions -->
-    <div class="flex justify-end gap-4 pt-4">
-      <button
-        type="button"
-        class="px-4 py-2 rounded-lg border border-gray-300 text-sm font-medium text-gray-700 hover:bg-gray-100 transition"
-      >
-        Cancel
-      </button>
-
-      <button
-        type="submit"
-        class="px-4 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-medium transition"
-      >
-        Submit Leave Request
-      </button>
-    </div>
   </form>
+  <!-- Actions -->
+  <div class="flex justify-end gap-4 pt-4">
+    <button
+      type="button"
+      class="px-4 py-2 rounded-lg border border-gray-300 text-sm font-medium text-gray-700 hover:bg-gray-100 transition"
+    >
+      Cancel
+    </button>
+
+    <button
+      type="button"
+      (click)="onSubmitLeave()"
+      class="px-4 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-medium transition"
+    >
+      Submit Leave Request
+    </button>
+  </div>
+</div>
+
+<!-- Table -->
+<div class="overflow-x-auto rounded-lg mt-10">
+  <table class="min-w-full bg-white text-sm">
+    <thead class="bg-gray-100 text-left text-gray-600 uppercase tracking-wider">
+      <tr>
+        <th class="px-6 py-3">#</th>
+        <th class="px-6 py-3">Name</th>
+        <th class="px-6 py-3">Leave Type</th>
+        <th class="px-6 py-3">From Date</th>
+        <th class="px-6 py-3">To Date</th>
+        <th class="px-6 py-3">Days</th>
+        <th class="px-6 py-3">Status</th>
+        <th class="px-6 py-3">Actions</th>
+      </tr>
+    </thead>
+    <tbody class="divide-y divide-gray-100 text-gray-700">
+      <tr *ngFor="let leave of leaveList; let i = index">
+        <td class="px-6 py-4">{{ i + 1 }}</td>
+        <td class="px-6 py-4">{{ leave.employeeName }}</td>
+        <td class="px-6 py-4">{{ leave.leaveType }}</td>
+        <td class="px-6 py-4">{{ leave.fromDate | date : "dd-mm-yy" }}</td>
+        <td class="px-6 py-4">{{ leave.toDate | date : "dd-mm-yy" }}</td>
+        <td class="px-6 py-4">{{ leave.noOfDays }}</td>
+        <td class="px-6 py-4">
+          <span
+            [ngClass]="{
+              'text-yellow-600': leave.isApproved === null,
+              'text-green-600': leave.isApproved === true,
+              'text-red-600': leave.isApproved === false
+            }"
+          >
+            {{
+              leave.isApproved === null
+                ? "Pending"
+                : leave.isApproved
+                ? "Approved"
+                : "Rejected"
+            }}
+          </span>
+        </td>
+        <td class="px-6 py-4">
+          <button class="text-indigo-600 hover:underline text-sm">View</button>
+          <button class="ml-2 text-red-600 hover:underline text-sm">
+            Delete
+          </button>
+        </td>
+      </tr>
+      <tr *ngIf="leaveList.length === 0">
+        <td colspan="6" class="px-6 py-4 text-center text-gray-500">
+          No leave requests found.
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </div>

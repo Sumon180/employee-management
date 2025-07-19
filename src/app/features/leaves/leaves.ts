@@ -9,7 +9,7 @@ import { RouterLink } from '@angular/router';
   styleUrl: './leaves.css',
 })
 export class Leaves {
-  selectedTab: string = 'All';
+  selectedTab: string = 'My Leaves';
 
   leaveRequests = [
     {
@@ -43,7 +43,7 @@ export class Leaves {
   ];
 
   get filteredLeaves() {
-    return this.selectedTab === 'All'
+    return this.selectedTab === 'My Leaves'
       ? this.leaveRequests
       : this.leaveRequests.filter((req) => req.status === this.selectedTab);
   }

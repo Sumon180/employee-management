@@ -24,26 +24,30 @@ export class NewEmployee implements OnInit {
     // Already initialized above, unless you need to reassign
   }
 
-  onRegister() {
-    const payload = {
-      ...this.newEmployee,
-      deptId: +this.newEmployee.deptId,
-    };
+  submitNewEmployee() {
+    if (this.newEmployee.employeeName && this.newEmployee.emailId) {
+      const payload = {
+        ...this.newEmployee,
+        deptId: +this.newEmployee.deptId,
+      };
 
-    console.log('Submitting payload:', JSON.stringify(payload, null, 2));
+      console.log('Submitting payload:', JSON.stringify(payload, null, 2));
 
-    this.employeeService.onRegister(payload).subscribe({
-      next: (res: any) => {
-        if (res?.result) {
-          alert('Successfully created' + res.message);
-        } else {
-          alert('Failed: ' + res.message);
-        }
-      },
-      error: (err) => {
-        console.error('API Error:', err);
-        alert('Registration failed. Server error.');
-      },
-    });
+      this.employeeService.onNewEmployee(payload).subscribe({
+        next: (res: any) => {
+          if (res?.result) {
+            alert('Successfully created' + res.message);
+          } else {
+            alert('Failed: ' + res.message);
+          }
+        },
+        error: (err) => {
+          console.error('API Error:', err);
+          alert('Registration failed. Server error.');
+        },
+      });
+    } else {
+      alert('Please fill in all required fields');
+    }
   }
 }
