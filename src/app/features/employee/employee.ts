@@ -77,4 +77,20 @@ export class Employee implements OnInit {
 
     return range;
   }
+
+  onDelete(empId: number) {
+    this.employeeService.deleteEmployee(empId).subscribe({
+      next: (response: ApiResponse) => {
+        if (response.result) {
+          alert('Employee deleted successfully');
+          this.getEmployees(); // Refresh the employee list
+        } else {
+          console.error('Failed to delete employee:', response.message);
+        }
+      },
+      error: (error) => {
+        console.error('Error deleting employee:', error);
+      },
+    });
+  }
 }

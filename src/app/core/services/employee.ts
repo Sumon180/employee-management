@@ -24,6 +24,12 @@ export class EmployeeService {
     return this.http.get<ApiResponse>(`${this.baseUrl}/GetEmployees`);
   }
 
+  deleteEmployee(empId: number): Observable<ApiResponse> {
+    return this.http.delete<ApiResponse>(
+      `${this.baseUrl}/DeleteEmployee?id=${empId}`
+    );
+  }
+
   getAllLeaves(): Observable<ApiResponse> {
     return this.http.get<ApiResponse>(`${this.baseUrl}/GetAllLeaves`);
   }
