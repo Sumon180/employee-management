@@ -5,6 +5,7 @@ import { Dashboard } from './features/dashboard/dashboard';
 import { Employee } from './features/employee/employee';
 import { Leaves } from './features/leaves/leaves';
 import { NewEmployee } from './features/employee/new-employee/new-employee';
+import { Settings } from './features/settings/settings';
 
 export const routes: Routes = [
   {
@@ -35,6 +36,10 @@ export const routes: Routes = [
       {
         path: 'leaves',
         component: Leaves,
+      },
+      {
+        path: 'settings',
+        component: Settings,
       },
     ],
   },

@@ -1,1 +1,81 @@
-<p>leaves works!</p>
+<div class="p-6 bg-white rounded-xl shadow-md">
+  <div class="flex items-center justify-between mb-6">
+    <div>
+      <h1 class="text-2xl font-semibold text-gray-800">Leave Management</h1>
+      <p class="text-sm text-gray-500">
+        Manage employee leaves and requests here.
+      </p>
+    </div>
+    <a
+      routerLink="/employee/new"
+      class="bg-[var(--primary)] hover:bg-opacity-90 text-white font-medium px-5 py-2 cursor-pointer rounded-md text-sm shadow"
+    >
+      + Add Leave Request
+    </a>
+  </div>
+
+  <!-- Tabs -->
+  <div class="mb-4 flex gap-2 border-b border-gray-200">
+    <button
+      *ngFor="let tab of ['All', 'Pending', 'Approved']"
+      (click)="setTab(tab)"
+      class="px-4 py-2 rounded-t-md text-sm font-medium"
+      [ngClass]="{
+        'bg-[var(--primary)] text-white shadow': selectedTab === tab,
+        'bg-gray-100 text-gray-600': selectedTab !== tab
+      }"
+    >
+      {{ tab }}
+    </button>
+  </div>
+
+  <!-- Table -->
+  <div class="overflow-x-auto rounded-lg">
+    <table class="min-w-full bg-white text-sm">
+      <thead
+        class="bg-gray-100 text-left text-gray-600 uppercase tracking-wider"
+      >
+        <tr>
+          <th class="px-6 py-3">#</th>
+          <th class="px-6 py-3">Name</th>
+          <th class="px-6 py-3">Leave Type</th>
+          <th class="px-6 py-3">Days</th>
+          <th class="px-6 py-3">Status</th>
+          <th class="px-6 py-3">Actions</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-gray-100 text-gray-700">
+        <tr *ngFor="let leave of filteredLeaves; let i = index">
+          <td class="px-6 py-4">{{ i + 1 }}</td>
+          <td class="px-6 py-4">{{ leave.name }}</td>
+          <td class="px-6 py-4">{{ leave.leaveType }}</td>
+          <td class="px-6 py-4">{{ leave.days }}</td>
+          <td class="px-6 py-4">
+            <span
+              [ngClass]="{
+                'text-yellow-600': leave.status === 'Pending',
+                'text-green-600': leave.status === 'Approved',
+                'text-red-600': leave.status === 'Rejected'
+              }"
+            >
+              {{ leave.status }}
+            </span>
+          </td>
+          <td class="px-6 py-4">
+            <button class="text-indigo-600 hover:underline text-sm">
+              View
+            </button>
+            <button class="ml-2 text-red-600 hover:underline text-sm">
+              Delete
+            </button>
+          </td>
+        </tr>
+        <tr *ngIf="filteredLeaves.length === 0">
+          <td colspan="6" class="px-6 py-4 text-center text-gray-500">
+            No leave requests found.
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
